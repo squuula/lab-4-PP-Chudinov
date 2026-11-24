@@ -1,0 +1,162 @@
+{
+  "dataset": "german.csv",
+  "split": {
+    "test_size": 0.3,
+    "stratify": true,
+    "random_state": 42,
+    "n_train": 700,
+    "n_test": 300
+  },
+  "positive_class": 1,
+  "selection_criterion": "mean ROC-AUC on RepeatedStratifiedKFold(5x3) on train only",
+  "final_model": {
+    "model_name": "Soft Voting (RandomForest + GradientBoosting + MLP)",
+    "roc_auc": 0.8286,
+    "accuracy": 0.7967,
+    "precision": 0.817,
+    "recall": 0.9143,
+    "f1": 0.8629,
+    "threshold": 0.5,
+    "fit_predict_seconds": 2.2
+  },
+  "robustness_10_random_splits": {
+    "roc_auc_mean": 0.81,
+    "roc_auc_std": 0.0217,
+    "roc_auc_min": 0.7735,
+    "roc_auc_max": 0.8489
+  },
+  "experiments": [
+    {
+      "experiment": "E0 LogisticRegression (baseline, не ансамбль)",
+      "cv_roc_auc_mean": 0.7726,
+      "cv_roc_auc_std": 0.031,
+      "test_roc_auc": 0.8226,
+      "test_accuracy": 0.7867,
+      "test_precision": 0.812,
+      "test_recall": 0.9048,
+      "test_f1": 0.8559,
+      "seconds": 0.4221
+    },
+    {
+      "experiment": "E1 RandomForest, исходные признаки, по умолчанию",
+      "cv_roc_auc_mean": 0.7769,
+      "cv_roc_auc_std": 0.0457,
+      "test_roc_auc": 0.801,
+      "test_accuracy": 0.78,
+      "test_precision": 0.7927,
+      "test_recall": 0.9286,
+      "test_f1": 0.8553,
+      "seconds": 15.2585
+    },
+    {
+      "experiment": "E2 RandomForest + признаки, leaf=3, sqrt, balanced",
+      "cv_roc_auc_mean": 0.7833,
+      "cv_roc_auc_std": 0.056,
+      "test_roc_auc": 0.8163,
+      "test_accuracy": 0.7867,
+      "test_precision": 0.8259,
+      "test_recall": 0.881,
+      "test_f1": 0.8525,
+      "seconds": 23.287
+    },
+    {
+      "experiment": "E3 ExtraTrees + one-hot, leaf=3, max_features=0.3",
+      "cv_roc_auc_mean": 0.7575,
+      "cv_roc_auc_std": 0.051,
+      "test_roc_auc": 0.7931,
+      "test_accuracy": 0.78,
+      "test_precision": 0.7951,
+      "test_recall": 0.9238,
+      "test_f1": 0.8546,
+      "seconds": 13.3273
+    },
+    {
+      "experiment": "E4 AdaBoost (300, lr=0.05)",
+      "cv_roc_auc_mean": 0.7459,
+      "cv_roc_auc_std": 0.0431,
+      "test_roc_auc": 0.779,
+      "test_accuracy": 0.73,
+      "test_precision": 0.7312,
+      "test_recall": 0.9714,
+      "test_f1": 0.8344,
+      "seconds": 8.7323
+    },
+    {
+      "experiment": "E5 GradientBoosting (300, lr=0.03, depth=3, subsample=0.8)",
+      "cv_roc_auc_mean": 0.7814,
+      "cv_roc_auc_std": 0.0485,
+      "test_roc_auc": 0.8065,
+      "test_accuracy": 0.7933,
+      "test_precision": 0.8083,
+      "test_recall": 0.9238,
+      "test_f1": 0.8622,
+      "seconds": 7.3818
+    },
+    {
+      "experiment": "E6 HistGradientBoosting (300, lr=0.03, depth=3, l2=1)",
+      "cv_roc_auc_mean": 0.7689,
+      "cv_roc_auc_std": 0.0555,
+      "test_roc_auc": 0.7884,
+      "test_accuracy": 0.7833,
+      "test_precision": 0.8059,
+      "test_recall": 0.9095,
+      "test_f1": 0.8546,
+      "seconds": 2.4093
+    },
+    {
+      "experiment": "E7 MLP (32), alpha=1",
+      "cv_roc_auc_mean": 0.7567,
+      "cv_roc_auc_std": 0.0362,
+      "test_roc_auc": 0.7863,
+      "test_accuracy": 0.7733,
+      "test_precision": 0.8034,
+      "test_recall": 0.8952,
+      "test_f1": 0.8468,
+      "seconds": 11.6204
+    },
+    {
+      "experiment": "E8 MLP (16), alpha=3",
+      "cv_roc_auc_mean": 0.7778,
+      "cv_roc_auc_std": 0.0308,
+      "test_roc_auc": 0.8316,
+      "test_accuracy": 0.78,
+      "test_precision": 0.8077,
+      "test_recall": 0.9,
+      "test_f1": 0.8514,
+      "seconds": 4.6378
+    },
+    {
+      "experiment": "E9 Soft Voting RF+GB",
+      "cv_roc_auc_mean": 0.7875,
+      "cv_roc_auc_std": 0.0512,
+      "test_roc_auc": 0.8196,
+      "test_accuracy": 0.7767,
+      "test_precision": 0.7992,
+      "test_recall": 0.9095,
+      "test_f1": 0.8508,
+      "seconds": 28.9659
+    },
+    {
+      "experiment": "E10 Stacking RF+GB+MLP -> LogReg",
+      "cv_roc_auc_mean": 0.7902,
+      "cv_roc_auc_std": 0.0458,
+      "test_roc_auc": 0.8284,
+      "test_accuracy": 0.79,
+      "test_precision": 0.8075,
+      "test_recall": 0.919,
+      "test_f1": 0.8597,
+      "seconds": 177.7933
+    },
+    {
+      "experiment": "E11 Soft Voting RF+GB+MLP (ВЫБРАНА)",
+      "cv_roc_auc_mean": 0.7924,
+      "cv_roc_auc_std": 0.0449,
+      "test_roc_auc": 0.8286,
+      "test_accuracy": 0.7967,
+      "test_precision": 0.817,
+      "test_recall": 0.9143,
+      "test_f1": 0.8629,
+      "seconds": 31.9572
+    }
+  ]
+}
